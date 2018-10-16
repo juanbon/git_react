@@ -1,4 +1,5 @@
 import React from 'react';
+import Boton from './Boton.js';
 /*
 
 const Horas = ()=><div>aaaaaa  jhorasss </div>;
@@ -17,7 +18,7 @@ class Horas extends React.Component {
 
     render(){
 
-        return <div>componente puro {this.props.lala}{this.props.data} </div>;
+        return <div><Boton pala="123456"/>componente puro {this.props.lala}{this.props.data} </div>;
     }
 
 }
