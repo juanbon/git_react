@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-class Boton extends React.Component{
+export default class Boton extends React.Component{
 
 
 constructor(props){
@@ -21,4 +21,4 @@ render(){
 }
 
 
-export default Boton;
+// export default Boton;

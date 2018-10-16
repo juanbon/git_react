@@ -9,14 +9,33 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			nombre: ''
+			nombre: '',
+			desdeelstate : 0,
+			meses : ['enero','febrero','marzo']
+
 		};
 	}
 
-	actualizarNombre = (a) => {
+
+	vertime = (g) =>{
+
+		var d = new Date();
+// 		d.getTime();
+
 		this.setState({
-			nombre: a.target.value
+
+			desdeelstate : d.getTime()
+
 		});
+
+	};
+
+	actualizarNombre = (a) => {
+
+			this.setState({
+				nombre: a.target.value
+			//	desdeelstate:0
+			});
 
 		//		console.log(a.);
 	};
@@ -30,6 +49,23 @@ class App extends Component {
 
 		return (
 			<div className="erda">
+
+			<li>
+
+			{this.state.meses.map(mes=>
+			
+			<ul>{mes}</ul>
+
+			)}
+
+
+			</li>
+
+<span>Agregar mes</span>
+
+
+{/*
+
 				<div className="lala">sssssssssssss</div>
 
 				<span>ingrese nombre </span>
@@ -53,11 +89,17 @@ class App extends Component {
 					);
 				})}
 
-
 				<Boton pala={this.state.nombre} />
 
-
 				<div>222222222</div>
+				<input type="button" value="cambiar" onClick={this.vertime} />
+				<span>Desde estado</span>
+				<input type="text" value={this.state.desdeelstate} />
+
+			*/}
+
+
+
 			</div>
 		);
 	}
