@@ -11,7 +11,9 @@ class App extends Component {
 		this.state = {
 			nombre: '',
 			desdeelstate : 0,
-			meses : ['enero','febrero','marzo']
+			meses : ['enero','febrero','marzo'],
+			bla:'',
+			campo:'',
 
 		};
 	}
@@ -30,6 +32,19 @@ class App extends Component {
 
 	};
 
+	pushmonth = (a) => {
+
+		this.setState({
+			 meses: [...this.state.meses,this.state.bla]
+		
+			// var newArray = this.state.meses.slice();    
+			// newArray.push("new value");   
+			// this.setState({meses:newArray});
+
+		});
+
+	};
+
 	actualizarNombre = (a) => {
 
 			this.setState({
@@ -39,7 +54,18 @@ class App extends Component {
 
 		//		console.log(a.);
 	};
+	otraFunction(ev){
+	console.log(ev);
+}
+	changeBla(e){
+		// e.persist();
+ 		console.log(e)
+ this.otraFunction(e);
 
+		this.setState({
+			[e.target.name]:e.target.value
+		})
+	}
 	render() {
 		const s = <div>ewwww444ww</div>;
 
@@ -61,8 +87,11 @@ class App extends Component {
 
 			</li>
 
-<span>Agregar mes</span>
-
+<span>Agregar mesgit</span>
+<input name="bla" type="text" value={this.state.bla} onChange={this.changeBla.bind(this)}/>
+<input name="campo" type="text" value={this.state.campo} onChange={this.changeBla.bind(this)}/>
+<textarea name="desc" id="" cols="30" rows="10" value={this.state.desc} onChange={this.changeBla.bind(this)} />
+<input type="button" value="Agregar" onClick={this.pushmonth} />
 
 {/*
 
