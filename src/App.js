@@ -9,62 +9,120 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			itemeditar: 0,
+			itemeliminar: 0,
 			nombre: '',
-			desdeelstate : 0,
-			meses : ['enero','febrero','marzo'],
-			bla:'',
-			campo:'',
-
+			desdeelstate: 0,
+			meses: ['enero', 'febrero', 'marzo'],
+			bla: '',
+			campo: '',
+			mensaje: 'Agregar mes: '
 		};
 	}
 
+	savemonth = () =>{
 
-	vertime = (g) =>{
-
-		var d = new Date();
-// 		d.getTime();
+		let edit = this.state.itemeditar;
+		console.log(this.state.bla);
 
 		this.setState({
-
-			desdeelstate : d.getTime()
-
+			meses: this.state.meses.map((a,b) => edit==b ?this.state.bla:a ),
+			bla: '',
+			mensaje: 'Agregar mes: '
 		});
+
+
 
 	};
 
-	pushmonth = (a) => {
+
+	canceleditmonth = () => {
+		this.setState({
+			mensaje: 'Agregar mes: ',
+			bla: ''
+		});
+	};
+
+	editMonth = (gh) => {
+		gh.persist();
+		console.log(gh.target.getAttribute('data-jj'));
+
+		let ik = gh.target.getAttribute('data-jj');
+
+		let da = this.state.meses;
 
 		this.setState({
-			 meses: [...this.state.meses,this.state.bla]
-		
-			// var newArray = this.state.meses.slice();    
-			// newArray.push("new value");   
-			// this.setState({meses:newArray});
-
+			mensaje: 'Editar mes: ',
+			bla: da[ik],
+			itemeditar:ik
 		});
+
+		//console.log(gh);
+	};
+
+	vertime = (g) => {
+		var d = new Date();
+		// 		d.getTime();
+
+		this.setState({
+			desdeelstate: d.getTime()
+		});
+	};
+
+	deletemonth = (a) =>{
+
+		a.persist();
+		console.log(a.target.getAttribute('data-eliminar'));
+		let ik = a.target.getAttribute('data-eliminar');
+		this.setState({
+			meses: this.state.meses.filter((t,e) => e!=ik),
+			bla:''
+		});
+
+
+	}
+
+	pushmonth = (a) => {
+
+		if(this.state.bla.trim()!=""){
+
+			this.setState({
+				meses: this.state.meses.concat(this.state.bla),
+				bla:''
+				//  [...this.state.meses,this.state.bla]
+
+				// var newArray = this.state.meses.slice();
+				// newArray.push("new value");
+				// this.setState({meses:newArray});
+			});
+
+		}else{
+			this.setState({
+				bla:""
+			});
+		}
 
 	};
 
 	actualizarNombre = (a) => {
-
-			this.setState({
-				nombre: a.target.value
+		this.setState({
+			nombre: a.target.value
 			//	desdeelstate:0
-			});
+		});
 
 		//		console.log(a.);
 	};
-	otraFunction(ev){
-	console.log(ev);
-}
-	changeBla(e){
+	otraFunction(ev) {
+		console.log(ev);
+	}
+	changeBla(e) {
 		// e.persist();
- 		console.log(e)
- this.otraFunction(e);
+		// 		console.log(e)
+		this.otraFunction(e);
 
 		this.setState({
-			[e.target.name]:e.target.value
-		})
+			[e.target.name]: e.target.value
+		});
 	}
 	render() {
 		const s = <div>ewwww444ww</div>;
@@ -75,25 +133,87 @@ class App extends Component {
 
 		return (
 			<div className="erda">
+				<li>
+					{this.state.meses.map((mes, o) => (
+						//	console.log(this),
 
-			<li>
+						<ul>
+							{mes}
+							<input
+								type="button"
+								data-jj={o}
+								className="isboton"
+								value="Editar"
+								onClick={this.editMonth}
+							/>
+							<input
+								type="button"
+								data-eliminar={o}
+								className="isboton"
+								value="Eliminar"
+								onClick={this.deletemonth}
+							/>
+						</ul>
+					))}
+				</li>
 
-			{this.state.meses.map(mes=>
-			
-			<ul>{mes}</ul>
+				{/* cada elemente tendra su acciones, que haran por si mismo,  */}
 
-			)}
+				<span style={{ marginRigth: '16px !important' }}>
+					{this.state.mensaje}
+				</span>
+				<input
+					name="bla"
+					type="text"
+					value={this.state.bla}
+					onChange={this.changeBla.bind(this)}
+				/>
+				<input
+					className="estaoculto"
+					name="campo"
+					type="text"
+					value={this.state.campo}
+					onChange={this.changeBla.bind(this)}
+				/>
+				<textarea
+					className="estaoculto"
+					name="desc"
+					id=""
+					cols="30"
+					rows="10"
+					value={this.state.desc}
+					onChange={this.changeBla.bind(this)}
+				/>
 
+				<div />
 
-			</li>
+				{this.state.mensaje == 'Agregar mes: ' ? (
+					<input
+						className="salta"
+						type="button"
+						value="Agregar"
+						onClick={this.pushmonth}
+					/>
+				) : (
+					<div>
+						<input
+							className="salta"
+							type="button"
+							value="Guardar"
+							onClick={this.savemonth}
+						/>
+						<input
+							className="salta"
+							type="button"
+							value="Cancelar"
+							onClick={this.canceleditmonth}
+						/>
+					</div>
+				)}
 
-<span>Agregar mesgit</span>
-<input name="bla" type="text" value={this.state.bla} onChange={this.changeBla.bind(this)}/>
-<input name="campo" type="text" value={this.state.campo} onChange={this.changeBla.bind(this)}/>
-<textarea name="desc" id="" cols="30" rows="10" value={this.state.desc} onChange={this.changeBla.bind(this)} />
-<input type="button" value="Agregar" onClick={this.pushmonth} />
+				{/*
 
-{/*
+	data-itemeditar={this.state.itemeditar}
 
 				<div className="lala">sssssssssssss</div>
 
@@ -126,9 +246,6 @@ class App extends Component {
 				<input type="text" value={this.state.desdeelstate} />
 
 			*/}
-
-
-
 			</div>
 		);
 	}

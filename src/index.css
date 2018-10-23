@@ -23,3 +23,22 @@ code {
   margin-left: 38%;
   margin-top: 14%;
 }
+
+.isboton{
+
+  margin-left: 6px;
+}
+
+.estaoculto{
+
+  display:none;
+  
+}
+
+
+.salta{
+  display:block;
+  margin-top: 14px;
+    float: left;
+    margin-left: 12px;
+}
